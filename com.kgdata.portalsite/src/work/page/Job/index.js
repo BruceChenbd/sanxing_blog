@@ -1,9 +1,8 @@
 import React from 'react';
-import { Table, Button, Tabs, Form, Switch, Col, Select, Input, Modal, Checkbox, Icon } from 'antd';
+import { Upload, Button, message, Form, Switch, Col, Select, Input, Modal, Checkbox, Icon } from 'antd';
 import './index.scss';
 import { observer, inject } from 'mobx-react';
-import SearchArea from '@components/searchArea/index'
-import boss from '../../images/boss.png'
+import { uploadPicture, saveImgList, queryImgs } from '../../server/index'
 
 
 @inject('UserStore')
@@ -12,152 +11,118 @@ class JobIndex extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            page: 1,
-            total: 0,
-            tableData: [
-                {
-                    jobName: '前端开发工程师',
-                    hireNum: 5,
-                    releaseTime: '2020-9-4',
-                    isVisable: true,
-                    key: 1,
-                    id: 1
-                }, {
-                    jobName: 'JAVA开发工程师',
-                    hireNum:  10,
-                    releaseTime: '2020-9-4',
-                    isVisable: true,
-                    key: 2,
-                    id: 2
-                },
-            ],
-            visible: false
+            fileList:[],
+            previewVisible: false,
+            previewImage: ''
         }
     }
 
     componentDidMount() {
-
-    }
-
-    goAdd = () => {
-        this.props.history.push('/JobIndex-add')
-    }
-    goedit = (id) => {
-        this.props.history.push({
-            pathname: 'JobIndex-edit',
-            query: {
-                id
+        queryImgs().then(res => {
+            if (res.data.code == 0 && res.data.data.length > 0 && res.data.data[0].pictureList.length>0) {
+                let result = res.data.data[0].pictureList.map(item => {
+                    return {
+                        uid: Math.floor(Math.random() * 10e6),
+                        url: item
+                    }
+                })
+                this.setState({
+                    fileList: result
+                })
+            } else {
+                this.setState({
+                    fileList: []
+                })
             }
         })
     }
-    fetchResult = (key) => {
-        console.log(key)
-    }
+    uploadImg = (file) => {
+        let { fileList } = this.state;
+        let fd = new FormData(), that = this;
+        fd.append('file', file.file);
+        
+        uploadPicture(fd)
+            .then(res => {
+                if (res.status == 200 && res.data.data && res.data.data.status == 0) {
+                console.log(res)
 
-    changePage = (current, pageSize) => {
+                    fileList = fileList.concat({
+                        uid: Math.floor(Math.random() * 10e6),
+                        url: res.data.data.data
+                    })
+                    this.setState({
+                        fileList
+                    })
+                    message.success('上传成功!');
+                } else {
+                    message.warn(res.data.data.message)
+                }
+            })
+            .catch(err => console.log(err));
+    };
+
+    handleImageRemove = (file) => {
+       let { fileList } = this.state;
+       let index = fileList.findIndex(item => item.uid == file.uid)
+       fileList.splice(index, 1)
+       this.setState({
+           fileList
+       })
+    };
+
+    handleCancel = () => this.setState({ previewVisible: false });
+
+    handlePreview = (file) => {
         this.setState({
-            page: current
-        })
+            previewImage: file.url || file.thumbUrl,
+            previewVisible: true
+        });
+    };
+    normImageFile = (e) => {
+        if (Array.isArray(e)) {
+            return e;
+        }
+        return e && e.fileList;
     }
-    onChangeCheck(record, val) {
-        let { tableData } = this.state;
-        tableData.forEach(item => {
-            if (item.id == record.id) {
-                item.isVisable = val
+    saveImgs = () => {
+        const { fileList } = this.state;
+        let pictureList = fileList.map(item => item.url)
+        saveImgList(pictureList).then(res => {
+            console.log(res)
+            if (res.data.code == 0) {
+                message.success(res.data.message)
+            } else {
+                message.warn('保存失败！')
             }
-        })
-        this.setState({
-            tableData
-        })
-
-    }
-    handleCancel = () => {
-        this.setState({
-            visible: false
-        })
-    }
-    lookDetail = () => {
-        this.setState({
-            visible: true
         })
     }
     render() {
-        const { page, total, tableData } = this.state;
-        const columns = [
-            {
-                title: '职位名称',
-                dataIndex: 'jobName',
-                key: 'jobName'
-            }, {
-                title: '招聘人数',
-                dataIndex: 'hireNum',
-                key: 'hireNum'
-            }, {
-                title: '发布时间',
-                dataIndex: 'releaseTime',
-                key: 'releaseTime'
-            }, {
-                title: '是否可见',
-                dataIndex: 'isVisable',
-                key: 'isVisable',
-                render: (text, record) => {
-                    return <Switch checkedChildren="是" unCheckedChildren="否" checked={record.isVisable} onChange={this.onChangeCheck.bind(this, record)} />
-                }
-            }, {
-                title: '操作',
-                render: (text, record) => {
-                    return <div>
-                        <span onClick={this.lookDetail} style={{ marginRight: '8px' }}><a>查看</a></span>
-                        <span onClick={() => this.goedit(record.id)} style={{ marginRight: '8px' }}><a>编辑</a></span>
-                        <span><a>删除</a></span>
-                    </div>
-                }
-            }
-        ]
-        const pagination = {
-            total: total,
-            current: page,
-            pageSize: 10,
-            size: 'small',
-            onChange: (current, pageSize) => this.changePage(current, pageSize),
-        }
+        const { fileList, previewVisible, previewImage } = this.state;
+        const uploadButton = (
+            <div>
+                <Icon type="plus" />
+                <div className="ant-upload-text">Upload</div>
+            </div>
+        );
         return (
-            <div className="JobIndex">
-                <div className="action_header">
-                    <Button onClick={this.goAdd} type="primary" icon="plus">添加职位</Button>
-                    <SearchArea searchCallback={this.fetchResult} />
-                </div>
-                <div className="result_body">
-                    <Table columns={columns} pagination={pagination} dataSource={tableData} />
-                </div>
-                <Modal
-                    title="预览"
-                    visible={this.state.visible}
-                    onOk={this.handleCancel}
-                    onCancel={this.handleCancel}
-                    footer={null}
-                    className="product_modal"
+            <div className="Picture_box">
+                <div>
+                <Upload
+                    className="cover-image"
+                    listType="picture-card"
+                    fileList={fileList}
+                    customRequest={this.uploadImg}
+                    onRemove={this.handleImageRemove}
+                    onPreview={this.handlePreview}
                 >
-                 <div className="job_preview">
-                     <div className="job_detail">
-                        <h4 className="job_name">nlp开发工程师</h4>
-                        <h3 className="title">岗位职责：</h3>
-                        <div>
-
-                        </div>
-                        <h3 className="title">岗位要求：</h3>
-                        <div>
-                            
-                        </div>
-                     </div>
-                     <div className="job_img">
-                         <img src={boss} alt=""/>
-                         <div className="tip">
-                             <span>微信扫一扫</span>
-                             <span>投递简历</span>
-                         </div>
-                     </div>
-                 </div>
+                    {uploadButton}
+                </Upload>
+                </div>
+                <div>
+                    <Button disabled={fileList.length>0? false: true} onClick={this.saveImgs} type="primary">保存</Button>
+                </div>
+                <Modal  title={'图片预览'} visible={previewVisible} footer={null} onCancel={this.handleCancel}>
+                    <img alt="example" style={{ width: '100%' }} src={previewImage} />
                 </Modal>
             </div>
         )

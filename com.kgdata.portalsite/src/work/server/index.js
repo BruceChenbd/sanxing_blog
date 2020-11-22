@@ -41,6 +41,14 @@ const getArticleInfo = (opt) => ajax({method: 'GET', url: `/api/manage/getArticl
 // 更新文章
 const updateArticle = (opt) => ajax({method: 'POST', url: '/api/manage/updateArticle', data: opt})
 
+// 图说生活
+const uploadPicture = (opt) => ajax({method: 'POST', url: '/api/manage/uploadPicture', data: opt})
+
+// 图说保存
+const saveImgList = (opt) => ajax({method: 'POST', url: '/api/manage/saveImgList', data: opt})
+
+// 查询图片数组
+const queryImgs = (opt) => ajax({method: 'GET', url: '/api/manage/getPictureList', params: opt})
 export {
     login,
     regist,
@@ -51,5 +59,8 @@ export {
     deleteArticle,
     setVisible,
     getArticleInfo,
-    updateArticle
+    updateArticle,
+    uploadPicture,
+    saveImgList,
+    queryImgs
 }

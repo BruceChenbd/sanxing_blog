@@ -1,73 +1,11 @@
-.JobIndex, .addJob {
+.Picture_box {
     padding: 23px;
-    .action_header {
-        display: flex;
-        justify-content: space-between;
+    .ant-upload-list-picture-card-container, .ant-upload-list-picture-card .ant-upload-list-item {
+        width: 250px;
+        height: 150px;
     }
-    .result_body {
-        margin-top: 24px;
-    }
-}
-.AddJob {
-    padding: 23px;
-    .back_area {
-        display: flex;
-        align-items: center;
-        h2 {
-            font-size: 18px;
-            font-weight: bold;
-            margin: 0 0 0 8px;
-        }
-    }
-    .editor_area {
-        margin-top: 24px;
-        .title_h2 {
-            font-size: 18px;
-            padding-right: 54px;
-            width: 150px;
-            text-align: right;
-            font-weight: bold;
-        }
-        .full {
-            .ant-input {
-                width: 888px;
-            }
-        }
-    }
-}
-.job_preview {
-    display: flex;
-    .job_detail {
-        flex-basis: 80%;
-    }
-    .job_img {
-        flex-basis: 20%;
-        margin-top: 140px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        img {
-            width: 132px;
-        }
-        .tip {
-            display: flex;
-            margin: 16px;
-            flex-direction: column;
-            span {
-                text-align: center;
-                color: rgba(0,0,0,0.45);
-                font-size: 12px;
-            }
-        }
-    }
-    .job_name {
-        font-size: 18px;
-        color: rgba(0,0,0,0.85);
-        margin: 32px 0;
-    }
-    .title {
-        font-weight: bold;
-        margin: 0 0 16px 0;
+    .ant-upload.ant-upload-select-picture-card {
+        width: 250px;
+        height: 150px;
     }
 }

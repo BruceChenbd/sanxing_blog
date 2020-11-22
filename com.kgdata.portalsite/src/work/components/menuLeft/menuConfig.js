@@ -139,7 +139,7 @@ const menuList = [
         key: '/Dashboard',
         type: 'dashboard',
     },{
-        title:'演示视频',
+        title:'我的剪辑',
         key: '/DemoVideo',
         type: 'dashboard',
     },{
@@ -170,10 +170,11 @@ const menuList = [
                 key: '/JobIndex-edit'
             }
         ]
-    },{
-        title: '用户管理',
-        key: '/GuestIndex',
-        type: 'linkedin'
     }
+    // ,{
+    //     title: '用户管理',
+    //     key: '/GuestIndex',
+    //     type: 'linkedin'
+    // }
 ]
   export default menuList;
