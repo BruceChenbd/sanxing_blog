@@ -1,0 +1,27 @@
+.logo {
+    width: 100%;
+    height: 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    color: #29ccb1;
+    font-family: 'fangsong';
+    line-height: 1;
+  }
+  .place_div {
+    height: 24px;
+    background-color: #000C17;
+  }
+  .nav {
+      background: $menuBgColor;
+      overflow-y: auto;
+      height: 100%;
+      .ant-menu-item-selected {
+        background: $mainColor !important
+      }
+      .ant-menu-dark .ant-menu-inline.ant-menu-sub {
+        background-color: #000C17;
+      }
+  }

@@ -1,0 +1,34 @@
+.tag-manage-modal {
+    .ant-modal-header {
+        background-color: $dialogHeadBgColor !important;
+        color: #fff;
+        border-radius: 0;
+    }
+}
+.tag-list-title h2 {
+    color: #fff;
+    font-size: 16px;
+    height: 32px;
+    margin: 0 0 0 6px;
+    line-height: 32px;
+}
+.tag-list-title h2::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 2px;
+    top: 9px;
+    height: 16px;
+    background-color: #fff;
+}
+.tag-search-area {
+   .ant-input {
+       border-radius: 0;
+       background-color: rgba(0,0,0,0);
+       color:#fff;
+       border: 1px solid $borderColor;
+   }
+   .ant-input-search-icon {
+      color: #fff;
+   }
+}

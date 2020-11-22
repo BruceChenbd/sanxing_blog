@@ -1,0 +1,72 @@
+.login-wrap {
+    .login-tab {
+      font-size: 20px;
+      width:192px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      color: black;
+      cursor: pointer;
+    }
+    .login-center {
+        width: 400px;
+        background: rgba(0,0,0,0.2);
+        
+        margin: 0 auto;
+        position: relative;
+        top: 118px;
+        #login-menu {
+          
+        }
+        #regist-menu {
+            .ant-card-body:before {
+                content: '';
+                position: absolute;
+                top: -21px;
+                left: 265px;
+                width: 0px;
+                height: 0px;
+                border-style: solid;
+                border-width: 10px 10px 10px 10px;
+                border-color: transparent transparent rgba(255,255,255,0.1) transparent;
+              }
+        }
+    }
+    .loginTitle {
+        font-size: 26px;
+        font-family: 'fangsong';
+        font-size:28px;
+        color: #29ccb1;
+        font-weight: bold;
+        text-align: center;
+        padding: 30px 0 32px 0;
+    }
+    .login-form {
+        width:100%;
+        #username {
+            background: #fff;
+            border: 1px solid rgb(211,211,211);
+            color: black;
+            &:hover {
+                border: 1px solid rgb(211,211,211) !important;
+            }
+        }
+        
+        #password {
+            background: #fff;
+            border: 1px solid rgb(211,211,211);
+            color: black;
+            &:hover {
+                border: 1px solid rgb(211,211,211) !important;
+            }
+        }
+        #passwordRe {
+            background: #fff;
+            border: 1px solid rgb(211,211,211);
+            color: black
+        }
+        .login-form-forgot {
+            float: right;
+        }
+    }
+}

@@ -1,0 +1,11 @@
+.GuestIndex {
+    padding: 23px;
+    .action_header {
+        display: flex;
+        justify-content: space-between;
+        position: relative;
+    }
+    .result_body {
+        margin-top: 24px;
+    }
+}

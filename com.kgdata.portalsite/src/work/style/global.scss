@@ -1,0 +1,64 @@
+:root {
+    --mainColor: #29ccb1;
+    --borderColor: rgba(255,255,255,0.16);
+    --fontColor: #ffffff;
+    --maskColor: rgba(0,0,0,0.45);
+    --dialogBgColor: #003300;
+    // 顶部导航栏背景
+    --headerBgColor: #fff;
+    // 左侧菜单背景
+    --menuBgColor: #001529;
+    // 区域划分背景
+    --areaBgColor: #F0F2F5;
+    // table头部背景色
+    --tableBgColor: #171C3B;
+    // 弹框头部背景色
+    --dialogHeadBgColor: #262B49;
+    // hover 
+    --activeColor: rgba(12,156,110,0.85);
+    //  表格固定列颜色
+    --fixedTableBg: #09491B;
+    // 总背景色
+    --mainBgColor: #F0F2F5;
+}
+// 主色调
+$mainColor: var(--mainColor);
+// 线条
+$borderColor: var(--borderColor);
+// 文字颜色
+$fontColor: var(--fontColor);
+// 弹窗，遮罩层背景
+$maskColor: var(--maskColor);
+// 弹窗背景
+$dialogBgColor: var(--dialogBgColor);
+// 顶部导航栏背景
+$headerBgColor: var(--headerBgColor);
+// 左侧菜单背景
+$menuBgColor: var(--menuBgColor);
+// 区域划分背景
+$areaBgColor: var(--areaBgColor);
+// table头部背景色
+$tableBgColor: var(--tableBgColor);
+// 弹框头部背景色
+$dialogHeadBgColor: var(--dialogHeadBgColor);
+// hover 
+$activeColor: var(--activeColor);
+//  表格固定列颜色
+$fixedTableBg: var(--fixedTableBg);
+//  主要背景色
+$mainBgColor: var(--mainBgColor);
+
+:export {
+    mainColor: $mainColor;
+    borderColor: $borderColor;
+    fontColor: $fontColor;
+    maskColor: $maskColor;
+    dialogBgColor: $dialogBgColor;
+    headerBgColor: $headerBgColor;
+    menuBgColor: $menuBgColor;
+    areaBgColor: $areaBgColor;
+    tableBgColor: $tableBgColor;
+    dialogHeadBgColor: $dialogHeadBgColor;
+    activeColor: $activeColor;
+    mainBgColor: $mainBgColor
+}

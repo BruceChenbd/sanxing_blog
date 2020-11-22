@@ -1,0 +1,37 @@
+.Dashboard {
+    height: 100%;
+    background: #F0F2F5;
+    .static_num {
+        display: flex;
+        justify-content: space-between;
+        .static_item {
+            padding: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff;
+            width: 32%;
+            .ant-statistic-title {
+                text-align: center;
+            }
+            .ant-statistic-content {
+                text-align: center;
+            }
+        }
+    }
+    .access_chart, .down_chart {
+        background-color: #fff;
+        margin-top: 16px;
+        padding: 16px;
+        height: 381px;
+        .chart_title {
+            font-size: 18px;
+            color: rgba(0,0,0,0.85);
+            font-weight: bold;
+            padding-left: 12px;
+        }
+    }
+    .down_chart {
+        height: 562px;
+    }
+}

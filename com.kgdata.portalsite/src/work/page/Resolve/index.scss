@@ -1,0 +1,62 @@
+.ResolveIndex  {
+    padding: 23px;
+    .action_header {
+        display: flex;
+        justify-content: space-between;
+    }
+    .result_body {
+        margin-top: 24px;
+    }
+}
+.product_page {
+    padding: 64px 24px;
+    .product_page_title {
+        font-size: 28px;
+        width: 114px;
+        color: rgba(0,0,0,0.85);
+        text-align: center;
+        margin: 0 auto;
+        position: relative;
+        font-weight: bold;
+        z-index: 10;
+        font-family: SourceHanSansSC-bold;
+        margin-bottom: 64px;
+    }
+    .product_page_title:after{
+        position: absolute;
+        content: '';
+        left: 6px;
+        top: 28px;
+        width: 100px;
+        height: 15px;
+        z-index: -1;
+        background-color: rgb(186,239,230);
+    }
+}
+.AddProduct {
+    padding: 23px;
+    .back_area {
+        display: flex;
+        align-items: center;
+        h2 {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0 0 0 8px;
+        }
+    }
+    .editor_area {
+        margin-top: 24px;
+        .title_h2 {
+            font-size: 18px;
+            padding-right: 54px;
+            width: 150px;
+            text-align: right;
+            font-weight: bold;
+        }
+        .full {
+            .ant-input {
+                width: 888px;
+            }
+        }
+    }
+}

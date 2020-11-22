@@ -1,0 +1,51 @@
+.NewsIndex, .AddNews  {
+    padding: 23px;
+    .action_header {
+        display: flex;
+        justify-content: space-between;
+    }
+    .result_body {
+        margin-top: 24px;
+    }
+}
+.AddNews {
+    padding: 23px;
+    .back_area {
+        display: flex;
+        align-items: center;
+        h2 {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0 0 0 8px;
+        }
+    }
+    .editor_area {
+        margin-top: 24px;
+        .title_h2 {
+            font-size: 18px;
+            padding-right: 54px;
+            width: 150px;
+            text-align: right;
+            font-weight: bold;
+        }
+        .full {
+            .ant-input {
+                width: 888px;
+            }
+        }
+    }
+}
+.new_preview .new_title {
+    font-size: 24px;
+    color: rgba(0,0,0,0.85);
+    text-align: center;
+    font-weight: bold;
+}
+.new_preview .new_date {
+    color: rgba(0,0,0,0.45);
+    font-size: 12px;
+    text-align: center;
+}
+.new_preview .new_body {
+    margin-top: 32px;
+}
