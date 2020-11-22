@@ -58,7 +58,7 @@ mongoose.Promise = require('bluebird');
 // 线上地址 mongodb://root:9527007@${config.dbHost}:${config.dbPort}/admin
 // 开发地址 mongodb://${config.dbHost}:${config.dbPort}/blog
 
-mongoose.connect(`mongodb://root:9527007@${config.dbHost}:${config.dbPort}/admin`, function (err) {
+mongoose.connect(`mongodb://${config.dbHost}:${config.dbPort}/blog`, function (err) {
     if (err) {
         console.log(err, "数据库连接失败");
         return;
