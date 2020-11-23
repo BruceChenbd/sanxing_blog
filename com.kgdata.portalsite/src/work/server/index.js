@@ -65,6 +65,9 @@ const deleteIframe = (opt) => ajax({method: 'DELETE', url: `/api/manage/delFrame
 // 查询iframe详情
 const queryIframeDetail = (opt) => ajax({method: 'GET', url: `/api/manage/getFrameDetail/${opt}`})
 
+// 获取网站访问量
+const queryVisit = (opt) => ajax({method: 'GET', url: '/api/public/getVisit', params: opt})
+
 export {
     login,
     regist,
@@ -83,5 +86,6 @@ export {
     editFrameUrl,
     getIrameList,
     deleteIframe,
-    queryIframeDetail
+    queryIframeDetail,
+    queryVisit
 }
