@@ -4,6 +4,7 @@ var jwt = require('jsonwebtoken');
 const picturesSchema = require('../model/pictures');
 const articleSchema = require('../model/article');
 const videoSchema = require('../model/video');
+const visitCountSchema = require('../model/visitCount');
 
 const {
     responseClient,
@@ -88,7 +89,7 @@ router.get('/getPictureList', (req, res) => {
 
 })
 
-
+let count = 0;
 
 // 获取文章列表
 router.get('/getArticleList', (req, res) => {
@@ -108,6 +109,32 @@ router.get('/getArticleList', (req, res) => {
     let skip = (pageNum - 1) < 0 ? 0 : (pageNum - 1) * 5;
     // 查询条件 name 不为空 
     let data = {};
+    let fc = function(){
+        function foo(){
+            count++  ;
+            return count;
+        }
+        return foo()
+    };
+    visitCountSchema.find().then(v => {
+        if (!v) {
+             let model = new visitCountSchema({
+                count: fc()
+             })
+             model.save().then(data => {
+             }).catch(err => {
+             })
+        } else {
+            visitCountSchema.update({
+
+            },{
+                count: fc()
+            }).then(data => {
+            }).catch(err => {
+            })
+        }
+    })
+
     // 查询总数
     if (JSON.stringify(req.query) == '{}' || searchConditions.length == 0) {
         articleSchema.countDocuments().then(count => {
@@ -146,6 +173,14 @@ router.get('/getArticleList', (req, res) => {
     }
 })
 
+// 获取网站访问量
+router.get('/getVisit', (req, res) => {
+    visitCountSchema.find().then(v => {
+        responseClient(res, 200, 0, '查询成功!', v)
+    }).catch(err => {
+        responseClient(res)
+    })
+})
 
 // 获取文章详情
 router.get('/getArticleInfo/:id', (req, res) => {
