@@ -12,6 +12,7 @@ var usersRouter = require('./routes/users');
 var mainRouter = require('./routes/home');
 var personalRouter = require('./routes/personal');
 var manageRouter = require('./routes/Manage');
+var publicRouter = require('./routes/public');
 
 var app = express();
 
@@ -49,7 +50,8 @@ app.use('/', indexRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/main', mainRouter);
 app.use('/api/personal', personalRouter);
-app.use('/api/manage',manageRouter);
+app.use('/api/manage', manageRouter);
+app.use('/api/public', publicRouter)
 
 
 // 数据库连接
@@ -58,7 +60,7 @@ mongoose.Promise = require('bluebird');
 // 线上地址 mongodb://root:9527007@${config.dbHost}:${config.dbPort}/admin
 // 开发地址 mongodb://${config.dbHost}:${config.dbPort}/blog
 
-mongoose.connect(`mongodb://${config.dbHost}:${config.dbPort}/blog`, function (err) {
+mongoose.connect(`mongodb://root:9527007@81.70.202.166:${config.dbPort}/admin`, function (err) {
     if (err) {
         console.log(err, "数据库连接失败");
         return;

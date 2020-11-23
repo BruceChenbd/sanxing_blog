@@ -6,12 +6,191 @@ var sd = require('silly-datetime');
 var jwt = require('jsonwebtoken');
 const picturesSchema = require('../model/pictures');
 const articleSchema = require('../model/article');
+const videoSchema = require('../model/video');
+
 const {
     MD5_KEY,
     responseClient,
     md5,
     getDateStr
 } = require('../utils/utils');
+
+// 我的剪辑iframe地址上传
+router.post('/saveFrameUrl', (req, res) => {
+    const { url, title } = req.body
+    let tokenAndUserId = req.headers['x-auth-token']; // 从Authorization中获取token
+    let token = tokenAndUserId.split('&&')[1];
+    let userId = tokenAndUserId.split('&&')[0];
+
+    let secretOrPrivateKey = "bgg" + userId; // 这是加密的key（密钥）
+    jwt.verify(token, secretOrPrivateKey, (err, decode) => {
+        if (err) { //  时间失效的时候 || 伪造的token
+            responseClient(res, 200, 2, '身份验证失败，请重新登录!')
+        } else {
+            let model = new videoSchema({
+                userId,
+                url,
+                title
+            })
+            model.save().then(data => {
+                responseClient(res, 200, 0, '添加成功!')
+            }).catch(err => {
+                responseClient(err)
+            })
+        }
+    })
+})
+
+// 查询我的剪辑详情
+router.get('/getFrameDetail/:id', (req, res) => {
+    let {
+        id
+    } = req.params;
+    let tokenAndUserId = req.headers['x-auth-token']; // 从Authorization中获取token
+    let token = tokenAndUserId.split('&&')[1];
+    let userId = tokenAndUserId.split('&&')[0];
+
+    let secretOrPrivateKey = "bgg" + userId; // 这是加密的key（密钥）
+    jwt.verify(token, secretOrPrivateKey, (err, decode) => {
+        if (err) { //  时间失效的时候 || 伪造的token
+            responseClient(res, 200, 2, '身份验证失败，请重新登录!')
+        } else {
+            videoSchema.find({
+                _id: id
+            }).then(resp => {
+                responseClient(res, 200, 0, '查询成功!', resp)
+            }).catch(err => {
+                responseClient(res)
+            })
+        }
+    })
+})
+// 查询我的剪辑列表
+router.get('/getFrameList', (req, res) => {
+    let {
+        key,
+        pageNum
+    } = req.query;
+    let searchConditions = [];
+    if (key) {
+        searchConditions = [{
+            title: eval("/" + key + "/")
+        }, {
+            url: eval("/" + key + "/")
+        }]
+    }
+
+    let skip = (pageNum - 1) < 0 ? 0 : (pageNum - 1) * 5;
+    let tokenAndUserId = req.headers['x-auth-token']; // 从Authorization中获取token
+    let token = tokenAndUserId.split('&&')[1];
+    let userId = tokenAndUserId.split('&&')[0];
+
+    let secretOrPrivateKey = "bgg" + userId; // 这是加密的key（密钥）
+    jwt.verify(token, secretOrPrivateKey, (err, decode) => {
+        if (err) { //  时间失效的时候 || 伪造的token
+            responseClient(res, 200, 2, '身份验证失败，请重新登录!')
+        } else {
+            // 查询条件 name 不为空 
+            let data = {};
+            // 查询总数
+            if (JSON.stringify(req.query) == '{}' || searchConditions.length == 0) {
+                videoSchema.countDocuments({
+                    userId
+                }).then(count => {
+                    data.total = count;
+                    videoSchema.find({
+                        userId
+                    }).skip(skip).limit(5).then(d => {
+                        if (JSON.stringify(d) == '[]') {
+                            data.articleArr = [];
+                            responseClient(res, 200, 0, '暂无数据', data)
+                        } else {
+                            data.articleArr = d;
+                            responseClient(res, 200, 0, '查询成功', data)
+                        }
+                    })
+                })
+            } else {
+                searchConditions.userId = userId;
+                videoSchema.countDocuments({
+                    $or: searchConditions
+                }).then(count => {
+                    data.total = count;
+                    videoSchema.find({
+                        $or: searchConditions
+                    }).skip(skip).limit(5).then(d => {
+                        if (JSON.stringify(d) == '[]') {
+                            data.articleArr = [];
+                            responseClient(res, 200, 0, '暂无数据', data)
+                        } else {
+                            data.articleArr = d;
+                            responseClient(res, 200, 0, '查询成功', data)
+                        }
+                    })
+                })
+            }
+        }
+    })
+})
+
+// 我的剪辑删除
+router.delete('/delFrame/:id', (req, res) => {
+    let {
+        id
+    } = req.params;
+    let tokenAndUserId = req.headers['x-auth-token']; // 从Authorization中获取token
+    let token = tokenAndUserId.split('&&')[1];
+    let userId = tokenAndUserId.split('&&')[0];
+
+    let secretOrPrivateKey = "bgg" + userId; // 这是加密的key（密钥）
+    jwt.verify(token, secretOrPrivateKey, (err, decode) => {
+        if (err) { //  时间失效的时候 || 伪造的token
+            responseClient(res, 200, 2, '身份验证失败，请重新登录!')
+        } else {
+            videoSchema.remove({
+                _id: id
+            }).then(data => {
+                if (data) {
+                    responseClient(res, 200, 0, '删除成功!')
+                }
+            }).catch(err => {
+                responseClient(err)
+            })
+        }
+    })
+})
+
+// 我的剪辑修改
+router.post('/updateIframe', (req, res) => {
+    const { url, id, title } = req.body;
+    let tokenAndUserId = req.headers['x-auth-token']; // 从Authorization中获取token
+    let token = tokenAndUserId.split('&&')[1];
+    let userId = tokenAndUserId.split('&&')[0];
+
+    let secretOrPrivateKey = "bgg" + userId; // 这是加密的key（密钥）
+    jwt.verify(token, secretOrPrivateKey, (err, decode) => {
+        if (err) { //  时间失效的时候 || 伪造的token
+            responseClient(res, 200, 2, '身份验证失败，请重新登录!')
+        } else {
+            videoSchema.findOne({
+                _id: id
+            }).then(data => {
+                videoSchema.update({
+                    _id: id
+                }, {
+                   url,
+                   title
+                }).then(u => {
+                    responseClient(res, 200, 0, '更新成功!')
+                }).catch(err => {
+                    responseClient(res)
+                })
+            }).catch(err => {
+                responseClient(res)
+            })
+        }
+    })
+})
 
 // 图说生活 /***start */
 router.post('/uploadPicture', (req, res) => {
@@ -46,7 +225,7 @@ router.post('/uploadPicture', (req, res) => {
                 }
                 // 限制文件大小 单位默认字节 这里限制大小为2m
                 if (filesFile.size > form.maxFieldsSize) {
-                    fs.unlink(filesFile.path, () => {})
+                    fs.unlink(filesFile.path, () => { })
                     return res.json({
                         data: {
                             data: {},
@@ -122,8 +301,8 @@ router.post('/saveImgList', (req, res) => {
         if (err) { //  时间失效的时候 || 伪造的token
             responseClient(res, 200, 2, '身份验证失败，请重新登录!')
         } else {
-            picturesSchema.findOne({userId}).then(p => {
-                if(p) {
+            picturesSchema.findOne({ userId }).then(p => {
+                if (p) {
                     picturesSchema.update({
                         userId
                     }, {
@@ -145,7 +324,7 @@ router.post('/saveImgList', (req, res) => {
                     })
                 }
             })
-           
+
         }
     })
 })
@@ -170,7 +349,7 @@ router.get('/getPictureList', (req, res) => {
             })
         }
     })
-   
+
 })
 
 /***文章管理 start */
@@ -207,7 +386,7 @@ router.post('/upload', (req, res) => {
                 }
                 // 限制文件大小 单位默认字节 这里限制大小为2m
                 if (filesFile.size > form.maxFieldsSize) {
-                    fs.unlink(filesFile.path, () => {})
+                    fs.unlink(filesFile.path, () => { })
                     return res.json({
                         data: {
                             data: {},
@@ -305,7 +484,7 @@ router.post('/uploadEdit', (req, res) => {
                 }
                 // 限制文件大小 单位默认字节 这里限制大小为2m
                 if (filesFile.size > form.maxFieldsSize) {
-                    fs.unlink(filesFile.path, () => {})
+                    fs.unlink(filesFile.path, () => { })
                     return res.json({
                         data: {
                             data: {},
@@ -482,7 +661,6 @@ router.get('/getArticleList', (req, res) => {
             }
         }
     })
-
 })
 
 // 删除文章
@@ -510,8 +688,8 @@ router.delete('/deleteArticle/:id', (req, res) => {
             })
         }
     })
-   
-   
+
+
 })
 
 // 设置文章可见与否
@@ -592,7 +770,7 @@ router.post('/updateArticle', (req, res) => {
             })
         }
     })
-   
+
 })
 
 // 获取文章详情
@@ -618,7 +796,7 @@ router.get('/getArticleInfo/:id', (req, res) => {
             })
         }
     })
-    
+
 })
 /***文章管理 end */
 
