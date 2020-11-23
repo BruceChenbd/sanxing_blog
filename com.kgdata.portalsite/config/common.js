@@ -61,7 +61,7 @@ export let dev_port = 3018
 export let localhost = is_pro(`http://${ip}:${dev_port}`, "", "")
 
 //发布后的网站title
-export let title = '柯基门户网站管理系统'
+export let title = '三省博客管理后台'
 
 //需要预加载的dns
 export let dns = ['www.baidu.com', 'www.qq.com']
