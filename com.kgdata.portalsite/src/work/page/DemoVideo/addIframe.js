@@ -45,7 +45,6 @@ class AddIframe extends React.Component {
                    this.setState({
                      articleInfo: res.data.data[0]
                    }, () => {
-                       console.log(this.state.articleInfo)
                    })
                 }
             })
