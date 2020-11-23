@@ -146,7 +146,7 @@ class ProductIndex extends React.Component {
                 dataIndex: 'productName',
                 key: 'productName',
                 render: (text, record) => {
-                    return <span style={{width: '100px', overflow: 'hidden', textOverflow:'ellipsis',
+                    return <span title={record.productName} style={{width: '100px', overflow: 'hidden', textOverflow:'ellipsis',
                     whiteSpace: 'nowrap', display: 'inline-block'}}>
                         {record.productName}
                     </span>

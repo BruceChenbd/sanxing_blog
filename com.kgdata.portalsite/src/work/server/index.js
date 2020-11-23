@@ -49,6 +49,22 @@ const saveImgList = (opt) => ajax({method: 'POST', url: '/api/manage/saveImgList
 
 // 查询图片数组
 const queryImgs = (opt) => ajax({method: 'GET', url: '/api/manage/getPictureList', params: opt})
+
+// 增加iframe地址
+const saveFrameUrl = (opt) => ajax({method: 'POST', url: '/api/manage/saveFrameUrl', data: opt})
+
+// 修改iframe地址
+const editFrameUrl = (opt) => ajax({method: 'POST', url: '/api/manage/updateIframe', data: opt})
+
+// 获取iframe地址
+const getIrameList = (opt) => ajax({method: 'GET', url: '/api/manage/getFrameList', params: opt})
+
+// 删除iframe地址
+const deleteIframe = (opt) => ajax({method: 'DELETE', url: `/api/manage/delFrame/${opt}`})
+
+// 查询iframe详情
+const queryIframeDetail = (opt) => ajax({method: 'GET', url: `/api/manage/getFrameDetail/${opt}`})
+
 export {
     login,
     regist,
@@ -62,5 +78,10 @@ export {
     updateArticle,
     uploadPicture,
     saveImgList,
-    queryImgs
+    queryImgs,
+    saveFrameUrl,
+    editFrameUrl,
+    getIrameList,
+    deleteIframe,
+    queryIframeDetail
 }

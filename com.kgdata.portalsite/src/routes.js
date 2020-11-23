@@ -14,7 +14,8 @@ const AddKnowledeg = loadable(() => import('../src/work/page/Knowledge/addKnowle
 const JobIndex = loadable(() => import('../src/work/page/Job/index'));
 const AddJob = loadable(() => import('../src/work/page/Job/addJob'));
 const GuestIndex = loadable(() => import('../src/work/page/Guest/index'));
-const DemoVideo = loadable(() => import('../src/work/page/DemoVideo/index'))
+const DemoVideo = loadable(() => import('../src/work/page/DemoVideo/index'));
+const addIframe = loadable(() => import('../src/work/page/DemoVideo/addIframe'));
 const NewsIndex = loadable(()=> import ('../src/work/page/News/index'));
 const AddNews = loadable(() => import('../src/work/page/News/addNews'));
 
@@ -29,6 +30,8 @@ export default class Router extends React.Component{
                             <Switch>
                                 <Route path="/Dashboard" component={Dashboard} ></Route>
                                 <Route path="/DemoVideo" component={DemoVideo}></Route>
+                                <Route path="/DemoVideo-add" component={addIframe}></Route>
+                                <Route path="/DemoVideo-edit/:id" component={addIframe}></Route>
                                 <Route path="/ProductIndex" component={ProductIndex}></Route>
                                 <Route path="/ProductIndex-add" component={AddProduct}></Route>
                                 <Route path="/ProductIndex-edit/:id" component={AddProduct}></Route>
