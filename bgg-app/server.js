@@ -27,10 +27,27 @@ app.prepare()
             })
         }
         server.get('/getTecArticleList', async (req, res) => {
-            console.log(req)
             const resData = await axios.get('http://81.70.202.166:8088/api/public/getArticleList',{
                params: req.query
             })
+            if (resData && resData.data.code == 0) {
+                res.status(200).send(resData.data.data)
+            } else {
+                res.status('暂无数据！')
+            }
+        })
+
+        server.get('/getDetail', async(req, res) => {
+            const resData = await axios.get(`http://81.70.202.166:8088/api/public/getArticleInfo/${req.query.id}`)
+             if (resData && resData.data.code == 0) {
+                 res.status(200).send(resData.data.data)
+             } else {
+                 res.status('暂无数据！')
+             }
+        })
+
+        server.get('/getPicture', async(req, res) => {
+            const resData = await axios.get(`http://81.70.202.166:8088/api/public/getPictureList`)
             if (resData && resData.data.code == 0) {
                 res.status(200).send(resData.data.data)
             } else {

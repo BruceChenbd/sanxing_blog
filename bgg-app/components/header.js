@@ -13,8 +13,11 @@ class Header extends React.Component {
     }
     componentDidMount() {
         let pathName = this.props.router.pathname;
-        if (pathName == '/news/detail') {
-            pathName = '/news'
+        if (pathName == '/bytalk/detail') {
+            pathName = '/bytalk'
+        }
+        if (pathName == '/detail') {
+            pathName = '/'
         }
         let currentPath = pathName;
         this.setState({

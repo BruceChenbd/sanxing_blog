@@ -1,19 +1,19 @@
 import React, { useState } from 'react'
 import { Collapse } from 'antd'
-import Header from '../components/header'
+import Header from '../../components/header'
 import Link from 'next/link'
-import CommonHead from '../components/commonHeader'
-import { queryList, test } from '../utils/service'
+import CommonHead from '../../components/commonHeader'
 import QueueAnim from 'rc-queue-anim';
-import '../styles/index.less'
+import { queryList, test } from '../../utils/service'
+
 
 const { Panel } = Collapse;
-class Home extends React.Component {
+class ByTalk extends React.Component {
   state = {
    
   }
   static async getInitialProps() {
-      let result = await test({key:'技术',pageNum: 1})
+      let result = await test({key:'杂谈',pageNum: 1})
       let artlist = []
       if (result && result.data && result.data.articleArr.length>0) {
           artlist = result.data.articleArr
@@ -44,7 +44,7 @@ class Home extends React.Component {
                  return <div className="art_item" key={item._id}>
                       <div className="left">
                         <h2 className="art_title">
-                          <Link href={`/detail?id=${item._id}`}>
+                          <Link href={`/bytalk/detail?id=${item._id}`}>
                             <a> {item.title}</a>
                           </Link>
                         </h2>
@@ -75,4 +75,4 @@ class Home extends React.Component {
   }
 }
 
-export default Home
+export default ByTalk
