@@ -15,11 +15,9 @@ class artDetail extends React.Component {
         detailInfo: null
     }
     async componentDidMount() {
-        console.log(this.props)
         let asPath = this.props.router.asPath;
         let id = this.props.router.query.id || asPath.split('?')[1].split('=')[1];
         let res = await queryDetail({id})
-        console.log(res,'res')
 
         if (res && res.data && res.data.length > 0) {
             this.setState({
@@ -27,14 +25,6 @@ class artDetail extends React.Component {
             })
         }
     }
-    // static async getInitialProps(props) {
-
-    //     let res = await queryDetail({})
-    //     console.log(res, 'res.data')
-    //     return {
-    //         list: res.data
-    //     }
-    // }
     showModal = () => {
         this.setState({
             isShow: true

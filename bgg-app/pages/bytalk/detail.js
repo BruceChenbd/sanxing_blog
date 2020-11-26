@@ -27,14 +27,6 @@ class artDetail extends React.Component {
             })
         }
     }
-    // static async getInitialProps(props) {
-
-    //     let res = await queryDetail({})
-    //     console.log(res, 'res.data')
-    //     return {
-    //         list: res.data
-    //     }
-    // }
     showModal = () => {
         this.setState({
             isShow: true

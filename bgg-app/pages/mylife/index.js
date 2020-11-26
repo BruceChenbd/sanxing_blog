@@ -11,28 +11,22 @@ import { queryPicture } from '../../utils/service'
 const { Panel } = Collapse;
 class MyLife extends React.Component {
   state = {
-   
+    picList: []
   }
-  static async getInitialProps() {
-      let result = await queryPicture()
-      console.log(result,'result')
-      let picList = []
-      if (result && result.data && result.data[0].pictureList.length>0) {
-         picList = result.data[0].pictureList
-      }
-      return {
+
+  async componentDidMount() {
+    let result = await queryPicture()
+    let picList = []
+    if (result && result.data && result.data[0].pictureList.length>0) {
+       picList = result.data[0].pictureList
+    }
+    this.setState({
         picList
-      }
-  }
-  componentDidMount() {
-    // queryList().then(res => {
-    //   console.log(res)
-    // })
+    })
   }
 
   render() {
-    let { picList } = this.props;
-    console.log(picList)
+    let { picList } = this.state;
     return (
       <>
         <CommonHead />
@@ -46,8 +40,8 @@ class MyLife extends React.Component {
                <div className="masonry">
                    {
                         picList? picList.map((item,index) => {
-                            return <div className="item">
-                                <img key={index} src={item} />
+                            return <div className="item" key={index}>
+                                <img  src={item} />
                             </div>
                         }): <div>暂无数据</div>
                    }

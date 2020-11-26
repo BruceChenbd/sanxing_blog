@@ -10,26 +10,21 @@ import '../styles/index.less'
 const { Panel } = Collapse;
 class Home extends React.Component {
   state = {
-   
+    artlist: []
   }
-  static async getInitialProps() {
-      let result = await test({key:'技术',pageNum: 1})
-      let artlist = []
-      if (result && result.data && result.data.articleArr.length>0) {
-          artlist = result.data.articleArr
-      }
-      return {
-        artlist
-      }
-  }
-  componentDidMount() {
-    // queryList().then(res => {
-    //   console.log(res)
-    // })
+  async componentDidMount() {
+    let result = await test({key:'技术',pageNum: 1})
+    let artlist = []
+    if (result && result.data && result.data.articleArr.length>0) {
+        artlist = result.data.articleArr
+    }
+    this.setState({
+      artlist
+    })
   }
 
   render() {
-    let { artlist } = this.props;
+    let { artlist } = this.state;
     return (
       <>
         <CommonHead />

@@ -97,7 +97,7 @@ class Header extends React.Component {
                             </Link>
                         </li>
                         <li>
-                            <Link href="/myeidt">
+                            <Link href="/myedit">
                                 <a>我爱剪辑</a>
                             </Link>
                         </li>
