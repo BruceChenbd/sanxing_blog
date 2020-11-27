@@ -23,24 +23,31 @@ a {
   overflow: hidden;
   background-color: #fff;
   border-radius: 8px;
-box-shadow:0 15px 35px rgba(0,0,0,0.1),0 3px 10px rgba(0,0,0,0.07);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1), 0 3px 10px rgba(0, 0, 0, 0.07);
+  display: flex;
+  justify-content: space-between;
   .left {
     float: left;
   }
+
   .right {
     float: right;
+
     img {
       width: 100px;
       border-radius: 2px;
     }
   }
+
   .art_title {
     font-size: 18px;
+    margin-right: 8px;
   }
 
   .art_content {
     overflow: hidden;
     max-width: 600px;
+
     p {
       float: left;
       width: 80%;
@@ -62,6 +69,7 @@ box-shadow:0 15px 35px rgba(0,0,0,0.1),0 3px 10px rgba(0,0,0,0.07);
     }
   }
 }
+
 @media screen and (max-width: 768px) {
   .art_item {
     .left {
