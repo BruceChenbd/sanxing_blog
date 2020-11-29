@@ -62,9 +62,9 @@ class artDetail extends React.Component {
                             </div>
                       </div>: <div>暂无数据</div>
                   }
-                  <div className="goback">
+                  {/* <div className="goback">
                       <Link href="/">返回列表</Link>
-                  </div>
+                  </div> */}
                 </div>
             </>
         )

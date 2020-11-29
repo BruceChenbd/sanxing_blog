@@ -21,7 +21,8 @@
     "next": "9.5.3",
     "rc-queue-anim": "^1.8.5",
     "react": "16.13.1",
-    "react-dom": "16.13.1"
+    "react-dom": "16.13.1",
+    "react-infinite-scroll-component": "^5.1.0"
   },
   "devDependencies": {
     "cross-env": "^7.0.2"

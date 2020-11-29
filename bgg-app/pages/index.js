@@ -5,12 +5,15 @@ import Link from 'next/link'
 import CommonHead from '../components/commonHeader'
 import { queryList, test } from '../utils/service'
 import QueueAnim from 'rc-queue-anim';
+import InfiniteScroll from 'react-infinite-scroll-component'
 import '../styles/index.less'
 
 const { Panel } = Collapse;
 class Home extends React.Component {
   state = {
-    artlist: []
+    artlist: [],
+    pageNum: 1,
+    hasMore: true
   }
   async componentDidMount() {
     let result = await test({key:'技术',pageNum: 1})
@@ -22,26 +25,66 @@ class Home extends React.Component {
       artlist
     })
   }
-
+  async fetchMoreData ()  {
+    let result = await test({key:'技术',pageNum: 1})
+    let artlist = []
+    if (result && result.data && result.data.articleArr.length>0) {
+        artlist = result.data.articleArr
+    }
+    this.setState({
+      artlist
+    })
+  }
+  async requestList () {
+    let { artlist, pageNum } = this.state;
+    pageNum+=1;
+    let result = await test({key:'技术', pageNum })
+    let list = []
+    if (result && result.data && result.data.articleArr.length>0) {
+       list = result.data.articleArr
+    }
+    this.setState({
+      artlist: artlist.concat(list),
+      pageNum,
+      hasMore: list.length == 0? false: true
+    })
+  }
   render() {
-    let { artlist } = this.state;
+    let { artlist, hasMore } = this.state;
     return (
       <>
         <CommonHead />
         <Header />
         <div style={{height: '80px'}}></div>
         <div className="technology">
-          <QueueAnim 
-          animConfig={{opacity:[1, 0],translateY:[0, -30]}}
-          delay={500}>
-             {
+        <InfiniteScroll
+                    dataLength={artlist.length}
+                    loader={<h4 style={{textAlign:'center'}}>加载中...</h4>}
+                    // refreshFunction = {this.fetchMoreData.bind(this)}
+                    // pullDownToRefresh
+                    // pullDownToRefreshThreshold={50}
+                    // pullDownToRefreshContent = {
+                    //     < h3 style = { { textAlign :' center ', } } > 下拉获取最新资讯 </ h3 >
+                    // }
+                    // releaseToRefreshContent = {
+                    //     < h3 style = { { textAlign :' center ', } } >  释放刷新 </ h3 >
+                    // }
+                    next={this.requestList.bind(this)}
+                    hasMore={hasMore}
+                    endMessage={
+                      <p style={{ textAlign: 'center' }}>
+                        <span>加载完毕了</span>
+                      </p>
+                    }
+                    >
+ {
                artlist? artlist.map(item => {
                  return <div className="art_item" key={item._id}>
                       <div className="left">
                         <h2 className="art_title">
-                          <Link href={`/detail?id=${item._id}`}>
-                            <a> {item.title}</a>
-                          </Link>
+                          <a target="_blank" href={`/detail?id=${item._id}`}>
+                            <h4> {item.title}</h4>
+                          </a>
                         </h2>
                         <div className="art_content">
                           <p>
@@ -63,7 +106,12 @@ class Home extends React.Component {
                  </div>
                }): <div>暂无数据!</div>
              }
-          </QueueAnim>
+                    </InfiniteScroll>
+          {/* <QueueAnim 
+          animConfig={{opacity:[1, 0],translateY:[0, -30]}}
+          delay={500}>
+            
+          </QueueAnim> */}
         </div>
       </>
     )
