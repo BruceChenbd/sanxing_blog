@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Collapse } from 'antd'
+import { Spin } from 'antd'
 import Header from '../../components/header'
 import Link from 'next/link'
 import CommonHead from '../../components/commonHeader'
@@ -8,10 +8,10 @@ import './index.less'
 import { queryPicture } from '../../utils/service'
 
 
-const { Panel } = Collapse;
 class MyLife extends React.Component {
   state = {
-    picList: []
+    picList: [],
+    isLoading: true
   }
 
   async componentDidMount() {
@@ -21,18 +21,23 @@ class MyLife extends React.Component {
        picList = result.data[0].pictureList
     }
     this.setState({
-        picList
+        picList,
+        isLoading: false
     })
   }
 
   render() {
-    let { picList } = this.state;
+    let { picList, isLoading } = this.state;
     return (
       <>
         <CommonHead />
         <Header />
         <div style={{height: '80px'}}></div>
-        <div className="my_life">
+        <>
+          {
+            isLoading?  <div style={{display:'flex', justifyContent:'center',alignItems:'center'}}>
+            <Spin />
+          </div>:   <div className="my_life">
           <QueueAnim 
           animConfig={{opacity:[1, 0],translateY:[0, -30]}}
           delay={500}>
@@ -40,7 +45,7 @@ class MyLife extends React.Component {
                <div className="masonry">
                    {
                         picList? picList.map((item,index) => {
-                            return <div className="item" key={index}>
+                            return <div className="item hvr-grow-shadow" key={index}>
                                 <img  src={item} />
                             </div>
                         }): <div>暂无数据</div>
@@ -49,6 +54,9 @@ class MyLife extends React.Component {
             }
           </QueueAnim>
         </div>
+          } 
+        </>
+      
       </>
     )
   }

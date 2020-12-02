@@ -7,7 +7,7 @@ const {
 
 const devProxy = {
     '/api': {
-        target: 'http://127.0.0.1:3800', // 端口自己配置合适的
+        target: 'http://81.70.202.166:8089', // 端口自己配置合适的
         changeOrigin: true
     }
 }

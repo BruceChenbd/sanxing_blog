@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Collapse } from 'antd'
+import { Spin  } from 'antd'
 import Header from '../components/header'
 import Link from 'next/link'
 import CommonHead from '../components/commonHeader'
@@ -8,7 +8,7 @@ import QueueAnim from 'rc-queue-anim';
 import InfiniteScroll from 'react-infinite-scroll-component'
 import '../styles/index.less'
 
-const { Panel } = Collapse;
+
 class Home extends React.Component {
   state = {
     artlist: [],
@@ -59,7 +59,9 @@ class Home extends React.Component {
         <div className="technology">
         <InfiniteScroll
                     dataLength={artlist.length}
-                    loader={<h4 style={{textAlign:'center'}}>加载中...</h4>}
+                    loader={<div style={{display:'flex',justifyContent:'center',alignContent:'center'}}>
+                      <Spin />
+                    </div>}
                     // refreshFunction = {this.fetchMoreData.bind(this)}
                     // pullDownToRefresh
                     // pullDownToRefreshThreshold={50}
@@ -79,7 +81,7 @@ class Home extends React.Component {
                     >
  {
                artlist? artlist.map(item => {
-                 return <div className="art_item" key={item._id}>
+                 return <div className="art_item hvr-underline-from-center" key={item._id}>
                       <div className="left">
                         <h2 className="art_title">
                           <a target="_blank" href={`/detail?id=${item._id}`}>
