@@ -23,16 +23,6 @@ class ByTalk extends React.Component {
       hasMore: artlist.length == result.data.total? false: true
     })
   }
-  async fetchMoreData ()  {
-    let result = await test({key:'杂谈',pageNum: 1})
-    let artlist = []
-    if (result && result.data && result.data.articleArr.length>0) {
-        artlist = result.data.articleArr
-    }
-    this.setState({
-      artlist
-    })
-  }
   async requestList () {
     let { artlist, pageNum } = this.state;
     pageNum+=1;
@@ -60,21 +50,12 @@ class ByTalk extends React.Component {
                     loader={<div style={{display:'flex',justifyContent:'center',alignContent:'center'}}>
                     <Spin />
                   </div>}
-                    // refreshFunction = {this.fetchMoreData.bind(this)}
-                    // pullDownToRefresh
-                    // pullDownToRefreshThreshold={50}
-                    // pullDownToRefreshContent = {
-                    //     < h3 style = { { textAlign :' center ', } } > 下拉获取最新资讯 </ h3 >
-                    // }
-                    // releaseToRefreshContent = {
-                    //     < h3 style = { { textAlign :' center ', } } >  释放刷新 </ h3 >
-                    // }
                     next={this.requestList.bind(this)}
                     hasMore={hasMore}
                     endMessage={
-                      <p style={{ textAlign: 'center' }}>
-                        <span>加载完毕了</span>
-                      </p>
+                      <p style={{ textAlign: 'center', color: '#00965e', fontSize: '12px' }}>
+                      <span>暂无更多数据</span>
+                    </p>
                     }
                     >
  {
@@ -93,7 +74,7 @@ class ByTalk extends React.Component {
                         </div>
                         <div className="art_footer">
                           <span>
-                            三省编辑部
+                            蚌埠张学友
                           </span>
                           <span>
                             {item.createTime}

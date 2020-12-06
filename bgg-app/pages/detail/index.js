@@ -7,6 +7,7 @@ import CommonHead from '../../components/commonHeader'
 import Link from 'next/link'
 import './index.less'
 import { queryDetail } from '../../utils/service'
+import bike from '../../static/imgs/bike.jpg'
 
 
 class artDetail extends React.Component {
@@ -37,6 +38,7 @@ class artDetail extends React.Component {
     }
     render() {
         const { detailInfo } = this.state;
+        
         return (
             <>
                 <CommonHead />
@@ -49,7 +51,7 @@ class artDetail extends React.Component {
                                 {detailInfo.title}
                             </h1>
                             <div className="art_info">
-                                <span>作者：三省编辑部</span>
+                                <span>作者：蚌埠张学友</span>
                                 <span>
                                     发布时间：{detailInfo.createTime}
                                 </span>

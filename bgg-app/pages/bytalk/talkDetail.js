@@ -51,7 +51,7 @@ class artDetail extends React.Component {
                                 {detailInfo.title}
                             </h1>
                             <div className="art_info">
-                                <span>作者：三省编辑部</span>
+                                <span>作者：蚌埠张学友</span>
                                 <span>
                                     发布时间：{detailInfo.createTime}
                                 </span>

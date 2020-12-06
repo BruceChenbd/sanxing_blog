@@ -44,10 +44,10 @@ class Header extends React.Component {
         return (
 
             <div className="header">
-                <div style={{display:'flex', alignItems:'center'}}>
+                <a href="/" style={{display:'flex', alignItems:'center'}}>
                     <span className="en-logo">SANXING</span>
                     <span className="ch-logo">三省</span>
-                </div>
+                </a>
                 <Menu onClick={this.handleMenu} selectedKeys={[this.state.currentPath]} mode="horizontal">
                     <Menu.Item key="/">
                         <Link href="/">
@@ -66,12 +66,12 @@ class Header extends React.Component {
                     </Menu.Item>
                     <Menu.Item key="/mylife">
                         <Link href="/mylife">
-                            <a>幸福小生活</a>
+                            <a>图说生活</a>
                         </Link>
                     </Menu.Item>
                     <Menu.Item key="/about">
                         <Link href="/about">
-                            <a>关于我</a>
+                            <a>联系我</a>
                         </Link>
                     </Menu.Item>
                 </Menu>
@@ -103,12 +103,12 @@ class Header extends React.Component {
                         </li>
                         <li>
                             <Link href="/mylife">
-                                <a>幸福小生活</a>
+                                <a>图说生活</a>
                             </Link>
                         </li>
                         <li>
                             <Link href="/about"><a>
-                            关于我</a>
+                            联系我</a>
                             </Link>
                         </li>
                     </ul>
